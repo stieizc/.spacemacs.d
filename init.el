@@ -25,10 +25,14 @@ values."
      ;; ----------------------------------------------------------------
      auto-completion
      ;; better-defaults
-     emacs-lisp
      git version-control
      python emacs-lisp javascript
      markdown yaml
+     (latex :variables
+            latex-enable-auto-fill t
+            latex-enable-folding t)
+     (c-c++ :variables
+            c-c++-enable-clang-support t)
      puppet
      (org :variables
           org-startup-truncated nil)
@@ -42,7 +46,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(verilog-mode)
+   dotspacemacs-additional-packages '(verilog-mode salt-mode jinja2-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(exec-path-from-shell)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -169,7 +173,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling t
+   dotspacemacs-smooth-scrolling nil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -188,6 +192,7 @@ values."
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
    dotspacemacs-default-package-repository nil
+   dotspacemacs-line-numbers t
    ))
 
 (defun dotspacemacs/user-init ()
@@ -202,6 +207,10 @@ user code."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+  (add-to-list 'evil-emacs-state-modes 'Info-mode)
+  (add-to-list 'TeX-view-program-list '("Mupdf" "mupdf %o"))
+  (setq TeX-view-program-selection '((output-pdf "Mupdf")))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
