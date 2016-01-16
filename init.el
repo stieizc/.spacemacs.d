@@ -33,6 +33,7 @@ values."
             latex-enable-folding t)
      (c-c++ :variables
             c-c++-enable-clang-support t)
+     semantic gtags
      puppet
      (org :variables
           org-startup-truncated nil)
@@ -209,8 +210,9 @@ user code."
 layers configuration. You are free to put any user code."
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (add-to-list 'evil-emacs-state-modes 'Info-mode)
-  (add-to-list 'TeX-view-program-list '("Mupdf" "mupdf %o"))
+  (setq TeX-view-program-list '(("Mupdf" "mupdf %o")))
   (setq TeX-view-program-selection '((output-pdf "Mupdf")))
+  (setq-default tab-width 4)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
