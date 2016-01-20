@@ -213,6 +213,9 @@ layers configuration. You are free to put any user code."
   (setq TeX-view-program-list '(("Mupdf" "mupdf %o")))
   (setq TeX-view-program-selection '((output-pdf "Mupdf")))
   (setq-default tab-width 4)
+  (add-hook
+   'c++-mode-hook
+   (lambda () (setq flycheck-clang-language-standard "c++11")))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
