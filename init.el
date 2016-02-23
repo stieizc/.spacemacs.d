@@ -30,9 +30,13 @@ values."
      markdown yaml
      (latex :variables
             latex-enable-auto-fill t
-            latex-enable-folding t)
+            latex-enable-folding t
+            tab-width 4
+            c-default-style "linux"
+            c-basic-offset 4)
      (c-c++ :variables
             c-c++-enable-clang-support t)
+     haskell
      semantic gtags
      puppet
      (org :variables
@@ -209,13 +213,18 @@ user code."
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  (add-to-list 'evil-emacs-state-modes 'Info-mode)
+  (add-hook 'Info-mode-hook 'turn-off-evil-mode)
   (setq TeX-view-program-list '(("Mupdf" "mupdf %o")))
   (setq TeX-view-program-selection '((output-pdf "Mupdf")))
   (setq-default tab-width 4)
   (add-hook
    'c++-mode-hook
    (lambda () (setq flycheck-clang-language-standard "c++11")))
+  (add-hook
+   'c-mode-hook
+   (lambda () (c-set-offset 'case-label '+)))
+  (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
+    "mht"  'ghc-show-type)
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
