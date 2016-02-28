@@ -40,7 +40,8 @@ values."
      semantic gtags
      puppet
      (org :variables
-          org-startup-truncated nil)
+          org-startup-truncated nil
+          org-startup-folded nil)
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -214,17 +215,23 @@ user code."
 layers configuration. You are free to put any user code."
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (add-hook 'Info-mode-hook 'turn-off-evil-mode)
-  (setq TeX-view-program-list '(("Mupdf" "mupdf %o")))
-  (setq TeX-view-program-selection '((output-pdf "Mupdf")))
+  (setq TeX-view-program-list '(("Evince" "evince %o")))
+  (setq TeX-view-program-selection '((output-pdf "Evince")))
   (setq-default tab-width 4)
   (add-hook
    'c++-mode-hook
    (lambda () (setq flycheck-clang-language-standard "c++11")))
   (add-hook
    'c-mode-hook
-   (lambda () (c-set-offset 'case-label '+)))
+   (lambda ()
+     (progn (c-set-offset 'case-label '+)
+            (c-set-offset 'arglist-intro '+))))
   (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
     "mht"  'ghc-show-type)
+  (add-hook
+   'org-mode-hook
+   (lambda ()
+     (add-to-list 'org-file-apps '("\\.pdf\\'" . "xdg-open %s"))))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
