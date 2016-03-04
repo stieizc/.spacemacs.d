@@ -30,10 +30,7 @@ values."
      markdown yaml
      (latex :variables
             latex-enable-auto-fill t
-            latex-enable-folding t
-            tab-width 4
-            c-default-style "linux"
-            c-basic-offset 4)
+            latex-enable-folding t)
      (c-c++ :variables
             c-c++-enable-clang-support t)
      haskell
@@ -217,21 +214,34 @@ layers configuration. You are free to put any user code."
   (add-hook 'Info-mode-hook 'turn-off-evil-mode)
   (setq TeX-view-program-list '(("Evince" "evince %o")))
   (setq TeX-view-program-selection '((output-pdf "Evince")))
-  (setq-default tab-width 4)
+  (defun my/c-common-hook ()
+    (c-set-offset 'case-label '+)
+    (c-set-offset 'arglist-intro '+)
+    (c-set-offset 'arglist-cont-nonempty '0)
+    )
+  (add-hook 'c-mode-hook 'my/c-common-hook)
+  (add-hook 'c++-mode-hook 'my/c-common-hook)
   (add-hook
    'c++-mode-hook
    (lambda () (setq flycheck-clang-language-standard "c++11")))
-  (add-hook
-   'c-mode-hook
-   (lambda ()
-     (progn (c-set-offset 'case-label '+)
-            (c-set-offset 'arglist-intro '+))))
   (spacemacs/set-leader-keys-for-major-mode 'haskell-mode
     "mht"  'ghc-show-type)
   (add-hook
    'org-mode-hook
    (lambda ()
-     (add-to-list 'org-file-apps '("\\.pdf\\'" . "xdg-open %s"))))
+     (progn
+       (add-to-list 'org-file-apps '("\\.pdf\\'" . "xdg-open %s"))
+       (org-clock-persistence-insinuate))
+     ))
+  (custom-set-variables
+   '(org-modules
+     '(org-habit org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail))
+   '(org-agenda-files '("~/Tasks"))
+   '(org-clock-persist t)
+   '(c-default-style "linux")
+   '(tab-width 4)
+   '(c-basic-offset 4)
+   )
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
