@@ -26,7 +26,9 @@ values."
      auto-completion
      ;; better-defaults
      git version-control
-     python emacs-lisp javascript
+     python emacs-lisp
+     (javascript :variables
+                 javascript-disable-tern-port-files nil)
      markdown yaml
      (latex :variables
             latex-enable-auto-fill t
@@ -46,6 +48,7 @@ values."
      ;;        shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
+     react
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -242,6 +245,9 @@ layers configuration. You are free to put any user code."
    '(c-default-style "linux")
    '(tab-width 4)
    '(c-basic-offset 4)
+
+   '(js2-basic-offset 2)
+   '(js-indent-level 2)
    )
 )
 
