@@ -36,7 +36,7 @@ values."
      (c-c++ :variables
             c-c++-enable-clang-support t)
      haskell rust
-     semantic gtags
+     gtags ;semantic
      puppet
      (clojure :variables
               clojure-enable-fancify-symbols t)
@@ -48,13 +48,13 @@ values."
      ;;        shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
-     react
+     ;react
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(verilog-mode salt-mode jinja2-mode)
+   dotspacemacs-additional-packages '(verilog-mode salt-mode jinja2-mode protobuf-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -103,7 +103,7 @@ values."
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font '("Meslo LG M"
-                               :size 14
+                               :size 15
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -180,7 +180,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
-   dotspacemacs-smooth-scrolling nil
+   ;dotspacemacs-smooth-scrolling nil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -248,6 +248,7 @@ layers configuration. You are free to put any user code."
 
    '(js2-basic-offset 2)
    '(js-indent-level 2)
+   '(projectile-use-git-grep t)
    )
 )
 
