@@ -48,13 +48,15 @@ values."
      ;;        shell-default-position 'bottom)
      ;; spell-checking
      syntax-checking
+     html
      ;react
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(verilog-mode salt-mode jinja2-mode protobuf-mode)
+   dotspacemacs-additional-packages
+   '(verilog-mode salt-mode jinja2-mode protobuf-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
