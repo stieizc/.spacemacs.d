@@ -56,7 +56,7 @@ values."
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages
-   '(verilog-mode salt-mode jinja2-mode protobuf-mode)
+   '(verilog-mode salt-mode jinja2-mode protobuf-mode unicode-fonts)
    ;; A list of packages and/or extensions that will not be install and loaded.
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -216,6 +216,8 @@ user code."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  ;(spacemacs/set-monospaced-font "Meslo LG M" "WenQuanYi Zen Hei Mono" 15 15)
+  (unicode-fonts-setup)
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (add-hook 'Info-mode-hook 'turn-off-evil-mode)
   (setq TeX-view-program-list '(("Evince" "evince %o")))
