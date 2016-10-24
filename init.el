@@ -27,6 +27,7 @@ values."
      ;; better-defaults
      git version-control
      python emacs-lisp
+     ess
      (javascript :variables
                  javascript-disable-tern-port-files nil)
      markdown yaml
@@ -35,9 +36,9 @@ values."
             latex-enable-folding t)
      (c-c++ :variables
             c-c++-enable-clang-support t)
-     haskell rust
-     gtags ;semantic
-     puppet
+     haskell rust scala go
+     gtags cscope;semantic
+     puppet ipython-notebook
      (clojure :variables
               clojure-enable-fancify-symbols t)
      (org :variables
@@ -46,9 +47,10 @@ values."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     ;; spell-checking
+     (spell-checking :variables spell-checking-enable-by-default nil)
      syntax-checking
      html
+     proof-general
      ;react
      )
    ;; List of additional packages that will be installed without being
@@ -71,6 +73,8 @@ You should not put any user code in there besides modifying the variable
 values."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
+(push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+(push '(ensime . "melpa-stable") package-pinned-packages)
   (setq-default
    ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
@@ -182,7 +186,7 @@ values."
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen. (default t)
-   ;dotspacemacs-smooth-scrolling nil
+   dotspacemacs-smooth-scrolling nil
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -222,6 +226,7 @@ layers configuration. You are free to put any user code."
   (add-hook 'Info-mode-hook 'turn-off-evil-mode)
   (setq TeX-view-program-list '(("Evince" "evince %o")))
   (setq TeX-view-program-selection '((output-pdf "Evince")))
+  (setq LaTeX-verbatim-environments-local '("Verbatim"))
   (defun my/c-common-hook ()
     (c-set-offset 'case-label '+)
     (c-set-offset 'arglist-intro '+)
@@ -241,9 +246,16 @@ layers configuration. You are free to put any user code."
        (add-to-list 'org-file-apps '("\\.pdf\\'" . "xdg-open %s"))
        (org-clock-persistence-insinuate))
      ))
+  (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (custom-set-variables
    '(org-modules
      '(org-habit org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail))
+   '(org-latex-pdf-process
+     '(
+       "xelatex -interaction nonstopmode %f"
+       "xelatex -interaction nonstopmode %f"
+       "xelatex -interaction nonstopmode %f"
+       ))
    '(org-agenda-files '("~/Tasks"))
    '(org-clock-persist t)
    '(c-default-style "linux")
