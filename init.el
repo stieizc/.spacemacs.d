@@ -50,7 +50,7 @@ values."
      (spell-checking :variables spell-checking-enable-by-default nil)
      syntax-checking
      html
-     proof-general
+     proof-general ;moinmoin
      ;react
      )
    ;; List of additional packages that will be installed without being
@@ -73,8 +73,8 @@ You should not put any user code in there besides modifying the variable
 values."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
-(push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
-(push '(ensime . "melpa-stable") package-pinned-packages)
+  (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
+  (push '(ensime . "melpa-stable") package-pinned-packages)
   (setq-default
    ;; One of `vim', `emacs' or `hybrid'. Evil is always enabled but if the
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
@@ -265,8 +265,8 @@ layers configuration. You are free to put any user code."
    '(js2-basic-offset 2)
    '(js-indent-level 2)
    '(projectile-use-git-grep t)
-   )
-)
+   '(cider-default-repl-command "boot")
+   ))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
