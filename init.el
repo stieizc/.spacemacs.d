@@ -67,8 +67,7 @@ values."
    '(verilog-mode
      salt-mode jinja2-mode
      protobuf-mode unicode-fonts all-the-icons doom-themes
-     gnuplot-mode
-     )
+     gnuplot-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -99,7 +98,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'random
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'.
    ;; (default '(recents projects))
@@ -215,16 +214,14 @@ values."
    ;; specified with an installed package.
    ;; Not used for now. (default nil)
    dotspacemacs-default-package-repository nil
-   dotspacemacs-line-numbers t
-   ))
+   dotspacemacs-line-numbers t))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
 It is called immediately after `dotspacemacs/init'.  You are free to put any
 user code."
   (autoload 'verilog-mode "verilog-mode" "Verilog mode" t )
-  (add-to-list 'auto-mode-alist '("\\.[ds]?vh?\\'" . verilog-mode))
-  )
+  (add-to-list 'auto-mode-alist '("\\.[ds]?vh?\\'" . verilog-mode)))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -240,8 +237,7 @@ layers configuration. You are free to put any user code."
   (defun my/c-common-hook ()
     (c-set-offset 'case-label '+)
     (c-set-offset 'arglist-intro '+)
-    (c-set-offset 'arglist-cont-nonempty '0)
-    )
+    (c-set-offset 'arglist-cont-nonempty '0))
   (add-hook 'c-mode-hook 'my/c-common-hook)
   (add-hook 'c++-mode-hook 'my/c-common-hook)
   (add-hook
@@ -254,8 +250,7 @@ layers configuration. You are free to put any user code."
    (lambda ()
      (progn
        (add-to-list 'org-file-apps '("\\.pdf\\'" . "xdg-open %s"))
-       (org-clock-persistence-insinuate))
-     ))
+       (org-clock-persistence-insinuate))))
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (custom-set-variables
@@ -278,8 +273,7 @@ layers configuration. You are free to put any user code."
    '(js-indent-level 2)
    '(projectile-use-git-grep t)
    '(cider-default-repl-command "boot")
-   '(octave-block-offset 4)
-   ))
+   '(octave-block-offset 4)))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
