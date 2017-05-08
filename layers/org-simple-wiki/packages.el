@@ -35,6 +35,5 @@
                                 :repo "wenxin-wang/org-simple-wiki"))))
 
 (defun org-simple-wiki/init-org-simple-wiki ()
-  (use-package org-simple-wiki
-    :defer t))
+  (use-package org-simple-wiki))
 ;;; packages.el ends here
