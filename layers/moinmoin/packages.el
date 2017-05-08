@@ -30,10 +30,7 @@
 ;;; Code:
 
 (defconst moinmoin-packages
-  '(
-    (moinmoin-mode :location local)
-    )
-  )
+  '((moinmoin-mode :location local)))
 
 (defun moinmoin/init-moinmoin-mode ()
   (load moinmoin-mode-path))

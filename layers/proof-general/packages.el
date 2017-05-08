@@ -32,9 +32,7 @@
 (defconst proof-general-packages
   '(
     company-coq
-    (proof-general :location local)
-    )
-  )
+    (proof-general :location local)))
 
 (defun proof-general/init-company-coq ()
   (use-package company-coq

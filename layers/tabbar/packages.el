@@ -33,23 +33,17 @@
   '(
     tabbar
     mode-icons
-    tabbar-ruler
-    )
-  )
+    tabbar-ruler))
 
 (defun tabbar/init-tabbar ()
   "Initialize Tabbar"
   (use-package tabbar
-    :defer t
-    )
-  )
+    :defer t))
 
 (defun tabbar/init-mode-icons ()
   "Initialize Mode-Icons"
   (use-package mode-icons
-    :defer t
-    )
-  )
+    :defer t))
 
 (defun tabbar/init-tabbar-ruler ()
   "Initialize Tabbar Ruler"
@@ -64,7 +58,5 @@
       )
     :config
     (progn
-      (tabbar-ruler-group-by-projectile-project))
-    )
-  )
+      (tabbar-ruler-group-by-projectile-project))))
 ;;; packages.el ends here
