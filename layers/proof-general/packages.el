@@ -42,11 +42,13 @@
 
 (defun proof-general/init-proof-general ()
   "Initialize Proof General."
-  ;; Setup from Proof General README, using a path from the configuration. Proof General
-  ;; lazily loads from proof-site, so there's no need to use-package it.
-  (load proof-general-path)
-  (spacemacs/set-leader-keys-for-major-mode 'coq-mode
-    "]" 'proof-assert-next-command-interactive
-    "[" 'proof-undo-last-successful-command
-    "." 'proof-goto-point))
+  (use-package proof-site
+    ;:mode "\\.v\\'"
+    :load-path "/usr/share/emacs/site-lisp/ProofGeneral/generic/proof-site"
+    :config
+    (spacemacs/set-leader-keys-for-major-mode 'coq-mode
+      "]" 'proof-assert-next-command-interactive
+      "[" 'proof-undo-last-successful-command
+      "." 'proof-goto-point) ; key bindings
+    ))
 ;;; packages.el ends here

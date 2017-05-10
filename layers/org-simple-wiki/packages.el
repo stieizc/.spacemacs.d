@@ -35,5 +35,15 @@
                                 :repo "wenxin-wang/org-simple-wiki"))))
 
 (defun org-simple-wiki/init-org-simple-wiki ()
-  (use-package org-simple-wiki))
+  (use-package org-simple-wiki
+    :config
+    (progn
+      ;; key bindings
+      (spacemacs/declare-prefix "aw" "org-simple-wiki-prefix")
+      (spacemacs/set-leader-keys
+        "awf" #'org-simple-wiki-find-file
+        "awk" #'org-simple-wiki-find-file-by-keyword
+        "aws" #'org-simple-wiki-search-ag
+        "awS" #'org-simple-wiki-search-keyword-ag))))
+
 ;;; packages.el ends here
