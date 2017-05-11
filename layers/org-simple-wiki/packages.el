@@ -41,8 +41,10 @@
       ;; key bindings
       (spacemacs/declare-prefix "aw" "org-simple-wiki-prefix")
       (spacemacs/set-leader-keys
-        "awf" #'org-simple-wiki-find-file
+        "awF" #'org-simple-wiki-find-file
+        "awf" #'org-simple-wiki-projectile-find-file
         "awk" #'org-simple-wiki-find-file-by-keyword
+        "awh" #'org-simple-wiki-insert-header
         "aws" #'org-simple-wiki-search-ag
         "awS" #'org-simple-wiki-search-keyword-ag))))
 
