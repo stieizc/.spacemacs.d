@@ -36,7 +36,8 @@
 
 (defun org-simple-wiki/init-org-simple-wiki ()
   (use-package org-simple-wiki
-    :config
+    :defer t
+    :init
     (progn
       ;; key bindings
       (spacemacs/declare-prefix "aw" "org-simple-wiki-prefix")
@@ -45,6 +46,7 @@
         "awf" #'org-simple-wiki-projectile-find-file
         "awk" #'org-simple-wiki-find-file-by-keyword
         "awh" #'org-simple-wiki-insert-header
+        "awK" #'org-simple-wiki-insert-keyword
         "aws" #'org-simple-wiki-search-ag
         "awS" #'org-simple-wiki-search-keyword-ag))))
 
