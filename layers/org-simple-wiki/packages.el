@@ -47,7 +47,10 @@
         "awk" #'org-simple-wiki-find-file-by-keyword
         "awh" #'org-simple-wiki-insert-header
         "awK" #'org-simple-wiki-insert-keyword
+        "awl" #'org-simple-wiki-insert-link
         "aws" #'org-simple-wiki-search-ag
-        "awS" #'org-simple-wiki-search-keyword-ag))))
+        "awS" #'org-simple-wiki-search-keyword-ag)
+      (with-eval-after-load 'org
+        (org-simple-wiki-org-mode-init)))))
 
 ;;; packages.el ends here
