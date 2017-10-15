@@ -36,7 +36,6 @@
 
 (defun org-simple-wiki/init-org-simple-wiki ()
   (use-package org-simple-wiki
-    :defer t
     :init
     (progn
       ;; key bindings
