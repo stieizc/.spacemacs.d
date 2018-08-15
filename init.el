@@ -18,6 +18,8 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     sql
+     lua
      csv
      windows-scripts
      php
@@ -121,11 +123,11 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
-   dotspacemacs-default-font '("Meslo LG M"
+   dotspacemacs-default-font '(("Meslo LG M"
                                :size 15
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.1))
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The leader key accessible in `emacs state' and `insert state'
@@ -231,10 +233,16 @@ user code."
   "Configuration function for user code.
  This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (defun font-frame-hook (frame)
+    (display-warning :warning "HEYHEYYOUYOU")
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font
+       t ;(frame-parameter frame 'font)
+       charset (font-spec :family "WenQuanYi Micro Hei Mono" :size 15))))
+  (setq face-font-rescale-alist '(("WenQuanYi Micro Hei Mono" . 1.2)))
+  (add-hook 'after-make-frame-functions #'font-frame-hook)
   (require 'helm-bookmark) ; https://github.com/syl20bnr/spacemacs/pull/9547
   (setq browse-url-browser-function 'browse-url-generic browse-url-generic-program "xdg-open")
-  (with-eval-after-load 'linum
-    (linum-relative-toggle))
 
   (defun artist-mode-toggle-emacs-state ()
     (if artist-mode
@@ -274,28 +282,30 @@ layers configuration. You are free to put any user code."
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (custom-set-variables
+   '(salt-mode-python-program "python2")
    '(org-startup-indented t)
    '(org-structure-template-alist '(("t" "#+TITLE: ?")
-                                   ("z" "#+BEGIN_LANG zh_CN?\n\n#+END_LANG")
-                                   ("s" "#+BEGIN_SRC ?\n\n#+END_SRC")
-                                   ("e" "#+BEGIN_EXAMPLE\n?\n#+END_EXAMPLE")
-                                   ("q" "#+BEGIN_QUOTE\n?\n#+END_QUOTE")
-                                   ("v" "#+BEGIN_VERSE\n?\n#+END_VERSE")
-                                   ("V" "#+BEGIN_VERBATIM\n?\n#+END_VERBATIM")
-                                   ("c" "#+BEGIN_CENTER\n?\n#+END_CENTER")
-                                   ("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT")
-                                   ("l" "#+BEGIN_EXPORT latex\n?\n#+END_EXPORT")
-                                   ("L" "#+LaTeX: ")
-                                   ("h" "#+BEGIN_EXPORT html\n?\n#+END_EXPORT")
-                                   ("H" "#+HTML: ")
-                                   ("a" "#+BEGIN_EXPORT ascii\n?\n#+END_EXPORT")
-                                   ("A" "#+ASCII: ")
-                                   ("i" "#+INDEX: ?")
-                                   ("I" "#+INCLUDE: %file ?")))
+                                    ("b" "#+BEGIN_?\n\n#+END_")
+                                    ("z" "#+BEGIN_LANG zh_CN?\n\n#+END_LANG")
+                                    ("s" "#+BEGIN_SRC ?\n\n#+END_SRC")
+                                    ("e" "#+BEGIN_EXAMPLE\n?\n#+END_EXAMPLE")
+                                    ("q" "#+BEGIN_QUOTE\n?\n#+END_QUOTE")
+                                    ("v" "#+BEGIN_VERSE\n?\n#+END_VERSE")
+                                    ("V" "#+BEGIN_VERBATIM\n?\n#+END_VERBATIM")
+                                    ("c" "#+BEGIN_CENTER\n?\n#+END_CENTER")
+                                    ("C" "#+BEGIN_COMMENT\n?\n#+END_COMMENT")
+                                    ("l" "#+BEGIN_EXPORT latex\n?\n#+END_EXPORT")
+                                    ("L" "#+LaTeX: ")
+                                    ("h" "#+BEGIN_EXPORT html\n?\n#+END_EXPORT")
+                                    ("H" "#+HTML: ")
+                                    ("a" "#+BEGIN_EXPORT ascii\n?\n#+END_EXPORT")
+                                    ("A" "#+ASCII: ")
+                                    ("i" "#+INDEX: ?")
+                                    ("I" "#+INCLUDE: %file ?")))
    '(org-file-apps '((auto-mode . emacs)
-                    ("\\.mm\\'" . default)
-                    ("\\.x?html?\\'" . default)
-                    ("\\.pdf\\'" . "xdg-open %s")))
+                     ("\\.mm\\'" . default)
+                     ("\\.x?html?\\'" . default)
+                     ("\\.pdf\\'" . "xdg-open %s")))
    '(enable-local-variables :all)
    '(neo-show-hidden-files nil)
    '(neo-hidden-regexp-list '("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.o$" "\\.d$"))
@@ -310,7 +320,7 @@ layers configuration. You are free to put any user code."
        "xelatex -interaction nonstopmode %f"
        "xelatex -interaction nonstopmode %f"
        ))
-   ;'(org-descriptive-links nil)
+                                        ;'(org-descriptive-links nil)
    '(org-agenda-files '("~/Tasks"))
 
    '(c-default-style "linux")
@@ -327,9 +337,84 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(c-basic-offset 4)
+ '(c-default-style "linux")
+ '(cider-default-repl-command "boot")
+ '(enable-local-variables :all)
+ '(evil-search-module (quote evil-search))
+ '(evil-want-Y-yank-to-eol t)
+ '(js-indent-level 2)
+ '(js2-basic-offset 2)
+ '(neo-hidden-regexp-list
+   (quote
+    ("^\\." "\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.o$" "\\.d$")))
+ '(neo-show-hidden-files nil t)
+ '(octave-block-offset 4)
+ '(org-agenda-files (quote ("~/Tasks")))
+ '(org-file-apps
+   (quote
+    ((auto-mode . emacs)
+     ("\\.mm\\'" . default)
+     ("\\.x?html?\\'" . default)
+     ("\\.pdf\\'" . "xdg-open %s"))))
+ '(org-latex-pdf-process
+   (quote
+    ("xelatex -interaction nonstopmode %f" "xelatex -interaction nonstopmode %f" "xelatex -interaction nonstopmode %f")))
+ '(org-modules
+   (quote
+    (org-habit org-w3m org-bbdb org-bibtex org-docview org-gnus org-info org-irc org-mhe org-rmail)))
+ '(org-simple-wiki-location "~/Personal/wiki")
+ '(org-startup-indented t)
+ '(org-structure-template-alist
+   (quote
+    (("t" "#+TITLE: ?")
+     ("b" "#+BEGIN_?
+
+#+END_")
+     ("z" "#+BEGIN_LANG zh_CN?
+
+#+END_LANG")
+     ("s" "#+BEGIN_SRC ?
+
+#+END_SRC")
+     ("e" "#+BEGIN_EXAMPLE
+?
+#+END_EXAMPLE")
+     ("q" "#+BEGIN_QUOTE
+?
+#+END_QUOTE")
+     ("v" "#+BEGIN_VERSE
+?
+#+END_VERSE")
+     ("V" "#+BEGIN_VERBATIM
+?
+#+END_VERBATIM")
+     ("c" "#+BEGIN_CENTER
+?
+#+END_CENTER")
+     ("C" "#+BEGIN_COMMENT
+?
+#+END_COMMENT")
+     ("l" "#+BEGIN_EXPORT latex
+?
+#+END_EXPORT")
+     ("L" "#+LaTeX: ")
+     ("h" "#+BEGIN_EXPORT html
+?
+#+END_EXPORT")
+     ("H" "#+HTML: ")
+     ("a" "#+BEGIN_EXPORT ascii
+?
+#+END_EXPORT")
+     ("A" "#+ASCII: ")
+     ("i" "#+INDEX: ?")
+     ("I" "#+INCLUDE: %file ?"))))
  '(package-selected-packages
    (quote
-    (intero flycheck-haskell evil-magit deferred company-math helm magit ghub let-alist winum web-mode use-package spaceline powerline ruby-test-mode rspec-mode pug-mode persp-mode org-simple-wiki org-projectile live-py-mode hy-mode htmlize ein doom-themes disaster column-enforce-mode clean-aindent-mode cargo dash-functional smartparens evil flycheck haskell-mode company helm-core markdown-mode alert org-plus-contrib magit-popup async php-mode dash yapfify ws-butler which-key websocket web-beautify volatile-highlights vi-tilde-fringe uuidgen unicode-fonts undo-tree toml-mode toc-org tagedit stickyfunc-enhance srefactor smeargle slim-mode scss-mode sass-mode salt-mode rvm ruby-tools rubocop robe restart-emacs request-deferred rbenv rake rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort protobuf-mode powershell popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets pcre2el paradox orgit org-present org-pomodoro org-download org-category-capture org-bullets open-junk-file noflet nginx-mode neotree move-text minitest math-symbol-lists markdown-toc magit-gitflow macrostep lorem-ipsum log4e livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc jinja2-mode info+ indent-guide hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-hoogle helm-gtags helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets goto-chg google-translate google-c-style golden-ratio go-guru go-eldoc gnuplot-mode gnuplot gntp gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-helm flycheck-rust flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu ensime emmet-mode elisp-slime-nav dumb-jump drupal-mode diminish diff-hl define-word cython-mode csv-mode company-web company-tern company-statistics company-go company-ghci company-ghc company-coq company-cabal company-c-headers company-auctex company-anaconda coffee-mode cmm-mode cmake-mode clojure-snippets clj-refactor clang-format cider-eval-sexp-fu chruby bundler bind-key auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk all-the-icons aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+    (sql-indent lua-mode intero flycheck-haskell evil-magit deferred company-math helm magit ghub let-alist winum web-mode use-package spaceline powerline ruby-test-mode rspec-mode pug-mode persp-mode org-simple-wiki org-projectile live-py-mode hy-mode htmlize ein doom-themes disaster column-enforce-mode clean-aindent-mode cargo dash-functional smartparens evil flycheck haskell-mode company helm-core markdown-mode alert org-plus-contrib magit-popup async php-mode dash yapfify ws-butler which-key websocket web-beautify volatile-highlights vi-tilde-fringe uuidgen unicode-fonts undo-tree toml-mode toc-org tagedit stickyfunc-enhance srefactor smeargle slim-mode scss-mode sass-mode salt-mode rvm ruby-tools rubocop robe restart-emacs request-deferred rbenv rake rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort protobuf-mode powershell popwin pip-requirements phpunit phpcbf php-extras php-auto-yasnippets pcre2el paradox orgit org-present org-pomodoro org-download org-category-capture org-bullets open-junk-file noflet nginx-mode neotree move-text minitest math-symbol-lists markdown-toc magit-gitflow macrostep lorem-ipsum log4e livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc jinja2-mode info+ indent-guide hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make helm-hoogle helm-gtags helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets goto-chg google-translate google-c-style golden-ratio go-guru go-eldoc gnuplot-mode gnuplot gntp gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md ggtags fuzzy flyspell-correct-helm flycheck-rust flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu ensime emmet-mode elisp-slime-nav dumb-jump drupal-mode diminish diff-hl define-word cython-mode csv-mode company-web company-tern company-statistics company-go company-ghci company-ghc company-coq company-cabal company-c-headers company-auctex company-anaconda coffee-mode cmm-mode cmake-mode clojure-snippets clj-refactor clang-format cider-eval-sexp-fu chruby bundler bind-key auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk all-the-icons aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell)))
+ '(projectile-use-git-grep t)
+ '(tab-width 4)
+ '(tramp-default-method "ssh" nil (tramp)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
